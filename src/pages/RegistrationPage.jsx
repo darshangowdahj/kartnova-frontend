@@ -51,33 +51,34 @@ export default function RegistrationPage() {
     // Debug: Log form data
     console.log('Registration attempt:', { username, email, password, role });
 
-    try {
-      const response = await fetch('/api/users/register', {
-        method: 'POST', 
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include', // Added credentials
-        body: JSON.stringify({ username, email, password, role }),
-      });
-      
-      console.log('Response status:', response.status);
-      console.log('Response headers:', response.headers);
-      
-      const data = await response.json();
-      console.log('Response data:', data);
+   try {
+  const API_URL = import.meta.env.VITE_BASE_URL;
 
-      if (response.ok) {
-        console.log('User registered successfully:', data);
-        // Redirect to login page
-        navigate('/'); // Redirect to login page
-      } else {
-        throw new Error(data.error || 'Registration failed');
-      }
-    } catch (err) {
-      console.error('Registration error:', err);
-      setError(err.message);
-    }
+  const response = await fetch(`${API_URL}/api/users/register`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify({ username, email, password, role }),
+  });
+
+  console.log('Response status:', response.status);
+  console.log('Response headers:', response.headers);
+
+  const data = await response.json();
+  console.log('Response data:', data);
+
+  if (response.ok) {
+    console.log('User registered successfully:', data);
+    navigate('/');
+  } else {
+    throw new Error(data.error || 'Registration failed');
+  }
+} catch (err) {
+  console.error('Registration error:', err);
+  setError(err.message);
+} 
   };
 
   return (
