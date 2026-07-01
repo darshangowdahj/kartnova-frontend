@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ## Kartnova Frontend
 
 A modern, responsive e-commerce frontend application built with React and Vite. Kartnova provides a seamless shopping experience with customer and admin interfaces, featuring product browsing, cart management, order processing, and administrative controls.
@@ -158,3 +159,7 @@ We welcome contributions! Please follow these steps:
 
 
 If you like this repository, give it a star! ⭐
+=======
+# kartnova-frontend
+Kartnova is a modern full-stack e-commerce platform built using React, Vite, Spring Boot, and MySQL, featuring user authentication, product management, shopping cart, order processing, and payment integration.
+>>>>>>> 2579e56c740ecf71ba49f00fe61298042d109401
