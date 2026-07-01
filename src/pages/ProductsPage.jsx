@@ -11,6 +11,7 @@ export default function ProductsPage() {
   const [username, setUsername] = useState('');
   const [cartError, setCartError] = useState(false); // State for cart fetch error
   const [isCartLoading, setIsCartLoading] = useState(true); // State for cart loading
+const API_URL = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
     fetchProducts();
@@ -22,9 +23,9 @@ export default function ProductsPage() {
   const fetchProducts = async (category = '') => {
     try {
       const response = await fetch(
-        `/api/products${category ? `?category=${category}` : '?category=Shirts'}`, 
-        { credentials: 'include' } // Include authToken as a cookie
-      );
+`${API_URL}/api/products${category ? `?category=${category}` : '?category=Shirts'}`,
+{ credentials: 'include' }
+);
       const data = await response.json();
       if(data)
      { 
@@ -43,8 +44,7 @@ export default function ProductsPage() {
   const fetchCartCount = async () => {
     setIsCartLoading(true); // Set loading state
     try {
-      const response = await fetch(`/api/cart/items/count?username=${username}`, {
-        credentials: 'include', // Include authToken as a cookie
+const response = await fetch(`${API_URL}/api/cart/items/count?username=${username}`, {        credentials: 'include', // Include authToken as a cookie
       });
       const count = await response.json();
       setCartCount(count);
@@ -67,8 +67,7 @@ export default function ProductsPage() {
       return;
     }
     try {
-      const response = await fetch(`/api/cart/add`, {
-        credentials: 'include',
+const response = await fetch(`${API_URL}/api/cart/add`, {        credentials: 'include',
         method: 'POST',
         body: JSON.stringify({ username, productId }), // Include username and productId in the request
         headers: { 'Content-Type': 'application/json' },

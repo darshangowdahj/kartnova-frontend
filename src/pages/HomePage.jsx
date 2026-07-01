@@ -13,6 +13,7 @@ export default function HomePage() {
   const [username, setUsername] = useState('');
   const [cartError, setCartError] = useState(false);
   const [isCartLoading, setIsCartLoading] = useState(true);
+const API_URL = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
     fetchMixedProducts();
@@ -24,9 +25,9 @@ export default function HomePage() {
   const fetchMixedProducts = async () => {
     try {
       const response = await fetch(
-        `/api/products?limit=12`, 
-        { credentials: 'include' }
-      );
+  `${API_URL}/api/products?limit=12`,
+  { credentials: 'include' }
+);
       const data = await response.json();
       if(data) {
         setUsername(data.user?.name || 'Guest');
@@ -45,8 +46,7 @@ export default function HomePage() {
   const fetchCartCount = async () => {
     setIsCartLoading(true);
     try {
-      const response = await fetch(`/api/cart/items/count?username=${username}`, {
-        credentials: 'include',
+const response = await fetch(`${API_URL}/api/cart/items/count?username=${username}`, {        credentials: 'include',
       });
       const count = await response.json();
       setCartCount(count);
@@ -65,8 +65,7 @@ export default function HomePage() {
       return;
     }
     try {
-      const response = await fetch(`/api/cart/add`, {
-        credentials: 'include',
+const response = await fetch(`${API_URL}/api/cart/add`, {        credentials: 'include',
         method: 'POST',
         body: JSON.stringify({ username, productId }),
         headers: { 'Content-Type': 'application/json' },

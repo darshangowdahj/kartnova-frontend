@@ -31,15 +31,14 @@ const LogoutIcon = () => (
 export function ProfileDropdown({ username }) {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate(); 
-
+const API_URL = import.meta.env.VITE_BASE_URL;
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
   const handleLogout = async () => {
     try {
-      const response = await fetch(`/api/auth/logout`, {
-        method: 'POST', 
+const response = await fetch(`${API_URL}/api/auth/logout`, {        method: 'POST', 
         credentials: 'include', 
       });
 

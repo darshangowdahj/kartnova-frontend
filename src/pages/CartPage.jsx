@@ -19,12 +19,13 @@ const CartPage = () => {
   const [username, setUsername] = useState("");
   const [subtotal, setSubtotal] = useState(0);
   const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_BASE_URL;
+
 
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
-        const response = await fetch(`/api/cart/items`, {
-          credentials: "include",
+const response = await fetch(`${API_URL}/api/cart/items`, {          credentials: "include",
         });
         if (!response.ok) throw new Error("Failed to fetch cart items");
         const data = await response.json();
@@ -55,8 +56,7 @@ const CartPage = () => {
 
   const handleRemoveItem = async (productId) => {
     try {
-      const response = await fetch(`/api/cart/delete`, {
-        method: "DELETE",
+const response = await fetch(`${API_URL}/api/cart/delete`, {        method: "DELETE",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
         body: JSON.stringify({ username, productId }),
@@ -75,8 +75,7 @@ const CartPage = () => {
         handleRemoveItem(productId);
         return;
       }
-      const response = await fetch(`/api/cart/update`, {
-        method: "PUT",
+const response = await fetch(`${API_URL}/api/cart/update`, {        method: "PUT",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
         body: JSON.stringify({ username, productId, quantity: newQuantity }),
@@ -110,8 +109,7 @@ const CartPage = () => {
         })),
       };
 
-      const response = await fetch(`/api/payment/create`, {
-        method: "POST",
+const response = await fetch(`${API_URL}/api/payment/create`, {        method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
         body: JSON.stringify(requestBody),
@@ -129,8 +127,7 @@ const CartPage = () => {
         order_id: razorpayOrderId,
         handler: async function (response) {
           try {
-            const verifyResponse = await fetch(`/api/payment/verify`, {
-              method: "POST",
+const verifyResponse = await fetch(`${API_URL}/api/payment/verify`, {              method: "POST",
               headers: { "Content-Type": "application/json" },
               credentials: "include",
               body: JSON.stringify({

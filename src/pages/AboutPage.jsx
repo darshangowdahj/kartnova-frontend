@@ -8,6 +8,7 @@ export default function AboutPage() {
   const [username, setUsername] = useState('');
   const [cartError, setCartError] = useState(false);
   const [isCartLoading, setIsCartLoading] = useState(true);
+const API_URL = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
     fetchUserInfo();
@@ -19,9 +20,9 @@ export default function AboutPage() {
   const fetchUserInfo = async () => {
     try {
       const response = await fetch(
-        `/api/products`, 
-        { credentials: 'include' }
-      );
+`${API_URL}/api/products`,
+{ credentials: 'include' }
+);
       const data = await response.json();
       if(data) {
         setUsername(data.user?.name || 'Guest');
@@ -35,8 +36,7 @@ export default function AboutPage() {
   const fetchCartCount = async () => {
     setIsCartLoading(true);
     try {
-      const response = await fetch(`/api/cart/items/count?username=${username}`, {
-        credentials: 'include',
+const response = await fetch(`${API_URL}/api/cart/items/count?username=${username}`, {        credentials: 'include',
       });
       const count = await response.json();
       setCartCount(count);

@@ -12,6 +12,7 @@ export default function OrdersPage() {
   const [username, setUsername] = useState('');
   const [cartError, setCartError] = useState(false); // State for cart fetch error
   const [isCartLoading, setIsCartLoading] = useState(true); // State for cart loading
+const API_URL = import.meta.env.VITE_BASE_URL;
 
   useEffect(() => {
     fetchOrders();
@@ -22,8 +23,7 @@ export default function OrdersPage() {
 
   const fetchOrders = async () => {
     try {
-      const response = await fetch(`/api/orders`, {
-        credentials: 'include',
+const response = await fetch(`${API_URL}/api/orders`, {        credentials: 'include',
       });
       if (!response.ok) throw new Error('Failed to fetch orders');
       const data = await response.json();
@@ -39,8 +39,7 @@ export default function OrdersPage() {
   const fetchCartCount = async () => {
     setIsCartLoading(true); // Set loading state
     try {
-      const response = await fetch(`/api/cart/items/count?username=${username}`, {
-        credentials: 'include',
+const response = await fetch(`${API_URL}/api/cart/items/count?username=${username}`, {        credentials: 'include',
       });
       const count = await response.json();
       setCartCount(count);

@@ -8,6 +8,7 @@ import CustomModal from "../components/CustomModal";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_BASE_URL;
   const [modalType, setModalType] = useState(null); // State to manage modal visibility and type
   const [modalData, setModalData] = useState(null); // State to store data passed to modal (if needed)
   const [response, setResponse] = useState(null); // State to store API responses
@@ -66,7 +67,7 @@ const AdminDashboard = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch(`/api/auth/logout`, {
+      const response = await fetch(`${API_URL}/api/auth/logout`, {
         method: "POST",
         credentials: "include",
       });
@@ -85,7 +86,7 @@ const AdminDashboard = () => {
   // Handlers for each modal action
   const handleAddProductSubmit = async (productData) => {
     try {
-      const response = await fetch(`/admin/products/add`, {
+      const response = await fetch(`${API_URL}/admin/products/add`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -103,7 +104,7 @@ const AdminDashboard = () => {
 
   const handleDeleteProductSubmit = async ({ productId }) => {
     try {
-      const response = await fetch(`/admin/products/delete`, {
+      const response = await fetch(`${API_URL}/admin/products/delete`, {
         method: "DELETE",
         credentials: "include",
         headers: {
@@ -126,7 +127,7 @@ const AdminDashboard = () => {
 
   const handleViewUserSubmit = async ({ userId }) => {
     try {
-      const response = await fetch(`/admin/user/getbyid`, {
+      const response = await fetch(`${API_URL}/admin/user/getbyid`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -155,7 +156,7 @@ const AdminDashboard = () => {
       // Fetch user details
       try {
         console.log("Fetching user details for ID:", data.userId); // Debugging
-        const response = await fetch(`/admin/user/getbyid`, {
+        const response = await fetch(`${API_URL}/admin/user/getbyid`, {
           method: "POST",
           credentials: "include",
           headers: {
@@ -181,7 +182,7 @@ const AdminDashboard = () => {
       // Update user details
       try {
         console.log("Updating user details:", data); // Debugging
-        const response = await fetch(`/admin/user/modify`, {
+        const response = await fetch(`${API_URL}/admin/user/modify`, {
           method: "PUT",
           credentials: "include",
           headers: {
@@ -208,7 +209,7 @@ const AdminDashboard = () => {
 
   const handleMonthlyBusiness = async (data) => {
     try {
-      const response = await fetch(`/admin/business/monthly?month=${data?.month}&year=${data?.year}`, {
+      const response = await fetch(`${API_URL}/admin/business/monthly?month=${data?.month}&year=${data?.year}`, {
         method: "GET",
         credentials: "include",
         headers: {
@@ -233,7 +234,7 @@ const AdminDashboard = () => {
 
   const handleDailyBusiness = async (data) => {
     try {
-      const response = await fetch(`/admin/business/daily?date=${data?.date}`, {
+      const response = await fetch(`${API_URL}/admin/business/daily?date=${data?.date}`, {
         method: "GET",
         credentials: "include",
         headers: {
@@ -258,7 +259,7 @@ const AdminDashboard = () => {
 
   const handleYearlyBusiness = async (data) => {
     try {
-      const response = await fetch(`/admin/business/yearly?year=${data?.year}`, {
+      const response = await fetch(`${API_URL}/admin/business/yearly?year=${data?.year}`, {
         method: "GET",
         credentials: "include",
         headers: {
@@ -283,7 +284,7 @@ const AdminDashboard = () => {
 
   const handleOverallBusiness = async () => {
     try {
-      const response = await fetch(`/admin/business/overall`, {
+      const response = await fetch(`${API_URL}/admin/business/overall`, {
         method: "GET",
         credentials: "include",
         headers: {
